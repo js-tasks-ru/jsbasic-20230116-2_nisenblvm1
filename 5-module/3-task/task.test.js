@@ -1,4 +1,4 @@
-describe('5-module-3-task', () => {
+вdescribe('5-module-3-task', () => {
   let carouselWrapper;
   let carouselInner;
   let carouselArrowRight;
