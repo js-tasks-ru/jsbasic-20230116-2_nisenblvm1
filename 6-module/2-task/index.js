@@ -9,7 +9,8 @@ export default class ProductCard {
 
     this.#render();
 
-    this.elem.addEventListener('click', this.#onClick);
+    // this.elem.addEventListener('click', this.#onClick);
+    this.elem.querySelector('.card__button').addEventListener('click', this.#onClick);
 
   }
   #onClick = () => {

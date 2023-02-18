@@ -9,9 +9,12 @@ export default class Carousel {
     this.#slides = slides;
 
 
-    this.#render();
+    // this.#render();
+    this.elem = createElement(this.#template());
+
     this.count = 0;
-    this.maxCountToLeft = (this.#slides.length - 1) * (-100);
+
+    this.maxCountToLeft = (this.#slides.length - 1);
     this.btnRight = this.elem.querySelector('.carousel__arrow_right');
     this.btnLeft = this.elem.querySelector('.carousel__arrow_left');
     this.btnLeft.style.display = 'none';
@@ -35,23 +38,29 @@ export default class Carousel {
          detail: slide.id, // Уникальный идентификатора товара из объекта товара
          bubbles: true
        });
-       document.querySelector('.carousel').dispatchEvent(myEvent);
+      this.elem.dispatchEvent(myEvent);
+       // document.querySelector('.carousel').dispatchEvent(myEvent);
     }
 
     }
 
   #moveCarousel = (event) => {
-    if (event.target === this.btnRight || event.target === this.btnRight.firstElementChild) {
-      this.elem.querySelector('.carousel__inner').style.transform = `translateX(${this.count = this.count - 100}%)`;
-      if(this.count === this.maxCountToLeft){this.btnRight.style.display = 'none'}
+    let offsetWidth = this.elem.querySelector('.carousel__inner').offsetWidth;
+
+    if (event.target === this.btnRight || event.target.closest('.carousel__arrow_right')) {
+
+      console.log(this.elem.querySelector('.carousel__inner').offsetWidth);
+
+      this.elem.querySelector('.carousel__inner').style.transform = `translateX(${this.count = this.count - offsetWidth}px)`;
+      if(this.count === (-offsetWidth * this.maxCountToLeft)){this.btnRight.style.display = 'none'}
       else{
         this.btnRight.style.display = '';
         this.btnLeft.style.display = '';
       }
 
-    } else if (event.target === this.btnLeft || event.target === this.btnLeft.firstElementChild) {
+    } else if (event.target === this.btnLeft || event.target.closest('.carousel__arrow_left')) {
 
-      this.elem.querySelector('.carousel__inner').style.transform = `translateX(${this.count = this.count + 100}%)`;
+      this.elem.querySelector('.carousel__inner').style.transform = `translateX(${this.count = this.count + offsetWidth}px)`;
       if(this.count === 0){this.btnLeft.style.display = 'none'}
       else{
         this.btnLeft.style.display = '';
@@ -87,9 +96,10 @@ export default class Carousel {
       </div>
   </div>`;
   }
-  #render() {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = this.#template();
-    this.elem = wrapper.firstElementChild;
-  }
+  // #render() {
+  //   const wrapper = document.createElement('div');
+  //   wrapper.innerHTML = this.#template();
+  //   this.elem = wrapper.firstElementChild;
+  // }
+
 }
