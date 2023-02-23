@@ -11,7 +11,7 @@ export default class RibbonMenu {
     this.elem = createElement(this.#template());
 
     // document.querySelector('.container').addEventListener('click', this.#onClick);
-    this.elem.addEventListener('click', this.#onClick)
+    this.elem.addEventListener('click', this.#onClick);
     this.elem.querySelector('.ribbon__inner').addEventListener('click', this.#onClickLink);
 
 

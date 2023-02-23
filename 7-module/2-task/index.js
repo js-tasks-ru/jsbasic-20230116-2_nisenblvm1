@@ -6,44 +6,34 @@ export default class Modal {
   constructor() {
     this.elem = createElement(this.#template());
 
-    this.elem.querySelector('.modal__close').addEventListener('click', this.close);
+    // this.elem.querySelector('.modal__close').addEventListener('click', this.close);
+    this.elem.querySelector(".modal__close").addEventListener('click', this.close);
     document.addEventListener('keydown', this.closeEscPush);
   }
-  open(){
+  open = () => {
   document.body.append(this.elem);
-  document.body.classList.add('is-modal-open');
+  document.body.classList.add("is-modal-open");
   }
-  setTitle(string){
-  this.elem.querySelector('.modal__title').append(string);
+  setTitle = (modal_title) => {
+    this.elem.querySelector('.modal__title').textContent = modal_title;
   }
-  setBody(node){
+  setBody = (node) => {
     // '<div>Тело модального окна</div>'
-
     this.elem.querySelector('.modal__body').firstChild.remove();
-
     this.elem.querySelector('.modal__body').append(node);
-    // modal.setBody(modalBody);
-
-    // let modalBody = document.createElement('div');
-    // modalBody.innerHTML = `<b>тут содержится тело модального окна<b/>`
-    // modal.setBody(modalBody);
   }
-  close(){
-    // let modal = document.querySelector('.modal');
-    // document.querySelector('body').removeChild(modal);
-    // document.body.classList.remove('is-modal-open');
 
-    document.body.classList.remove('is-modal-open');
-    document.querySelector('.modal').remove();
-
+  close = () => {
+      this.elem.remove();
+      document.body.classList.remove('is-modal-open');
   }
-  closeEscPush(event){
+  closeEscPush = (event) => {
     if(event.code === 'Escape'){
-      document.querySelector('.modal').remove();
+      this.elem.remove();
       document.body.classList.remove('is-modal-open');
     }
   }
-  #template() {
+  #template(){
     return `<div class="modal">
     <!--Прозрачная подложка перекрывающая интерфейс-->
     <div class="modal__overlay"></div>
@@ -56,7 +46,7 @@ export default class Modal {
         </button>
 
         <h3 class="modal__title">
-<!--          Вот сюда нужно добавлять заголовок-->
+
         </h3>
       </div>
 
@@ -66,5 +56,5 @@ export default class Modal {
     </div>
 
   </div>`;
-  }
+    }
 }
